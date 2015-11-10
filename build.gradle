@@ -1,10 +1,19 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.saliman:gradle-cobertura-plugin:2.2.8"
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'maven'
-apply plugin: 'cobertura'
+apply plugin: "cobertura"
 apply plugin: 'com.github.kt3k.coveralls'
-
-
 
 group = 'com.sohu'
 version = '0.1-SNAPSHOT'
@@ -15,9 +24,6 @@ repositories {
 }
 
 dependencies {
-    classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
-    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
-
     // Logging
     compile "org.slf4j:slf4j-api:1.7.2"
     compile "ch.qos.logback:logback-classic:1.0.9"
