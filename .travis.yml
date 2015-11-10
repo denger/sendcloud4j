@@ -4,4 +4,5 @@ jdk:
     - oraclejdk8
     - openjdk7
 after_success:
-      coveralls
+    - ./gradlew cobertura coveralls
+
