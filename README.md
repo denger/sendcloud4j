@@ -1,5 +1,8 @@
 # SendCloud Java SDK
 
+[![Travis CI Build Status](https://travis-ci.org/denger/sendcloud-javasdk.svg)](https://travis-ci.org/denger/sendcloud-javasdk)
+[![Coverage Status](https://coveralls.io/repos/denger/sendcloud-javasdk/badge.svg?branch=master&service=github)](https://coveralls.io/github/denger/sendcloud-javasdk?branch=master)
+
 [SendCloud](http://sendcloud.sohu.com) API SDK For Java
 
 ## Quick Start
