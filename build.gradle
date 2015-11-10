@@ -15,7 +15,7 @@ apply plugin: 'maven'
 apply plugin: "cobertura"
 apply plugin: 'com.github.kt3k.coveralls'
 
-group = 'com.sohu'
+group = 'io.jstack'
 version = '0.1-SNAPSHOT'
 
 repositories {
