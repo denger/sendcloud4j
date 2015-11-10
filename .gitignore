@@ -46,5 +46,12 @@
 # JIRA plugin
 atlassian-ide-plugin.xml
 
+# Eclipse
+
+.classpath
+.project
+.settings
+
+
 rmbpay-web/src/main/resources/static/assets/public/
 rmbpay-payment/src/main/resources/static/assets/public

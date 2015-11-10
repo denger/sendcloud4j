@@ -7,10 +7,8 @@ group = 'com.sohu'
 version = '0.1-SNAPSHOT'
 
 repositories {
-    maven {
-        url "http://maven.oschina.net/content/groups/public/"
-    }
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
