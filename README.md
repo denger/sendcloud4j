@@ -1,10 +1,10 @@
-# SendCloud API For Java SDK
+# SendCloud SDK For Java 
 
 [![Travis CI Build Status](https://travis-ci.org/denger/sendcloud4j.svg)](https://travis-ci.org/denger/sendcloud4j)
 [![Coverage Status](https://coveralls.io/repos/denger/sendcloud4j/badge.svg?branch=master&service=github)](https://coveralls.io/github/denger/sendcloud4j?branch=master)
 [![Landscape Status](https://landscape.io/github/denger/sendcloud4j/master/landscape.svg?style=flat)](https://landscape.io/github/denger/sendcloud4j)
 
-[SendCloud](http://sendcloud.sohu.com) API SDK For Java
+[SendCloud](http://sendcloud.sohu.com) SDK For Java
 
 ## Quick Start
 ```xml
