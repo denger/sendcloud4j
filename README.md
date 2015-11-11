@@ -9,7 +9,7 @@
 ## Quick Start
 ```xml
 <dependency>
-	<groupId>com.sohu</groupId>
+	<groupId>io.jstack</groupId>
 	<artifactId>sendcloud-javasdk</artifactId>
 	<version>0.1-SNAPSHOT</version>
 <dependency>
