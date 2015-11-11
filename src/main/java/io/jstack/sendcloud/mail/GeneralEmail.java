@@ -1,8 +1,6 @@
-package com.sohu.sendcloud.client.mail;
-
+package io.jstack.sendcloud.mail;
 
 public class GeneralEmail extends Email<GeneralEmail> {
-
 
     public GeneralEmail html(String html) {
         return addParameter("html", html);

@@ -1,6 +1,6 @@
-package com.sohu.sendcloud.client.mail;
+package io.jstack.sendcloud.mail;
 
-import com.sohu.sendcloud.client.SendCloud;
+import io.jstack.sendcloud.SendCloud;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
@@ -12,20 +12,18 @@ import java.util.Map;
 
 public class MailWebApi {
 
-    private String apiKey;
-    private String apiUser;
+    private SendCloud sendCloud;
 
     private static Charset UTF_8 = Charset.forName("UTF-8");
 
     private static Logger logger = LoggerFactory.getLogger(MailWebApi.class);
 
-    public static MailWebApi create(String apiKey, String apiUser) {
-        return new MailWebApi(apiKey, apiUser);
+    public static MailWebApi create(SendCloud sendCloud) {
+        return new MailWebApi(sendCloud);
     }
 
-    private MailWebApi(String apiKey, String apiUser) {
-        this.apiKey = apiKey;
-        this.apiUser = apiUser;
+    private MailWebApi(SendCloud sendCloud) {
+        this.sendCloud = sendCloud;
     }
 
     public String send(Email email) {
@@ -48,8 +46,8 @@ public class MailWebApi {
     private String requestSend(String uri, Map<String, String> params) throws IOException {
         return Request.Post(uri)
                 .bodyForm(convertFrom(params).build(), UTF_8)
-                .connectTimeout(1000)
-                .socketTimeout(1000)
+                .connectTimeout(sendCloud.connectTimeout())
+                .socketTimeout(sendCloud.socketTimeout())
                 .execute()
                 .returnContent().asString(UTF_8);
     }
@@ -59,8 +57,8 @@ public class MailWebApi {
         for (Map.Entry<String, String> param : parameters.entrySet()) {
             form.add(param.getKey(), param.getValue());
         }
-        form.add("api_user", apiUser);
-        form.add("api_key", apiKey);
+        form.add("api_user", sendCloud.apiUser());
+        form.add("api_key", sendCloud.apiKey());
 
         return form;
     }

@@ -1,4 +1,4 @@
-package com.sohu.sendcloud.client.mail;
+package io.jstack.sendcloud.mail;
 
 import java.util.HashMap;
 import java.util.Map;
