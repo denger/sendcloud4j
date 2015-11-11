@@ -10,7 +10,7 @@
 ```xml
 <dependency>
 	<groupId>io.jstack</groupId>
-	<artifactId>sendcloud-javasdk</artifactId>
+	<artifactId>sendcloud4j</artifactId>
 	<version>0.1-SNAPSHOT</version>
 <dependency>
 ```
