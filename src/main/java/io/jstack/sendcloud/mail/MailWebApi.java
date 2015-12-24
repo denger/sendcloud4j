@@ -12,55 +12,66 @@ import java.util.Map;
 
 public class MailWebApi {
 
-    private SendCloud sendCloud;
+	private SendCloud sendCloud;
 
-    private static Charset UTF_8 = Charset.forName("UTF-8");
+	private static Charset UTF_8 = Charset.forName("UTF-8");
 
-    private static Logger logger = LoggerFactory.getLogger(MailWebApi.class);
+	private static Logger logger = LoggerFactory.getLogger(MailWebApi.class);
 
-    public static MailWebApi create(SendCloud sendCloud) {
-        return new MailWebApi(sendCloud);
-    }
+	public static MailWebApi create(SendCloud sendCloud) {
+		return new MailWebApi(sendCloud);
+	}
 
-    private MailWebApi(SendCloud sendCloud) {
-        this.sendCloud = sendCloud;
-    }
+	private MailWebApi(SendCloud sendCloud) {
+		this.sendCloud = sendCloud;
+	}
 
-    public String send(Email email) {
-        try {
-            return requestSend(getSendAPIURI(email), email.getParameters());
-        } catch (IOException ioe) {
-            logger.error("Request send mail error: {}", ioe);
-            return ioe.getMessage();
-        }
-    }
+	public String send(Email email) {
+		try {
+			return requestSend(getSendAPIURI(email), email.getParameters());
+		} catch (IOException ioe) {
+			logger.error("Request send mail error: {}", ioe);
+			return ioe.getMessage();
+		}
+	}
 
-    private String getSendAPIURI(Email email) {
-        return String.format("%s/webapi/mail.%s.json", SendCloud.DOMAIN, (isTemplate(email) ? "send_template" : "send"));
-    }
+	public Result sendOut(Email email) {
+		try {
+			String jsonResult = requestSend(getSendAPIURI(email),
+					email.getParameters());
+			return new Result(jsonResult);
+		} catch (IOException ioe) {
+			logger.error("Request send mail error: {}", ioe);
+			return new Result(Result.CODE.ERROR, ioe.getMessage());
+		}
+	}
 
-    private boolean isTemplate(Email email) {
-        return (email instanceof TemplateEmail);
-    }
+	private String getSendAPIURI(Email email) {
+		return String.format("%s/webapi/mail.%s.json", SendCloud.DOMAIN,
+				(isTemplate(email) ? "send_template" : "send"));
+	}
 
-    private String requestSend(String uri, Map<String, String> params) throws IOException {
-        return Request.Post(uri)
-                .bodyForm(convertFrom(params).build(), UTF_8)
-                .connectTimeout(sendCloud.connectTimeout())
-                .socketTimeout(sendCloud.socketTimeout())
-                .execute()
-                .returnContent().asString(UTF_8);
-    }
+	private boolean isTemplate(Email email) {
+		return (email instanceof TemplateEmail);
+	}
 
-    private Form convertFrom(Map<String, String> parameters) {
-        Form form = Form.form();
-        for (Map.Entry<String, String> param : parameters.entrySet()) {
-            form.add(param.getKey(), param.getValue());
-        }
-        form.add("api_user", sendCloud.apiUser());
-        form.add("api_key", sendCloud.apiKey());
+	private String requestSend(String uri, Map<String, String> params)
+			throws IOException {
+		return Request.Post(uri).bodyForm(convertFrom(params).build(), UTF_8)
+				.connectTimeout(sendCloud.connectTimeout())
+				.socketTimeout(sendCloud.socketTimeout()).execute()
+				.returnContent().asString(UTF_8);
+	}
 
-        return form;
-    }
+	private Form convertFrom(Map<String, String> parameters) {
+		Form form = Form.form();
+		for (Map.Entry<String, String> param : parameters.entrySet()) {
+			form.add(param.getKey(), param.getValue());
+		}
+		form.add("api_user", sendCloud.apiUser());
+		form.add("api_key", sendCloud.apiKey());
+
+		return form;
+	}
 
 }
