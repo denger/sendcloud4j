@@ -1,7 +1,7 @@
 # SendCloud SDK For Java 
 
 [![Travis CI Build Status](https://travis-ci.org/denger/sendcloud4j.svg)](https://travis-ci.org/denger/sendcloud4j)
-[![Coverage Status](https://coveralls.io/repos/denger/sendcloud4j/badge.svg?branch=master&service=github)](https://coveralls.io/github/denger/sendcloud4j?branch=master)
+[![Coverage Status](https://coveralls.io/repos/akirapanda/sendcloud4j/badge.svg?branch=master&service=github)](https://coveralls.io/github/akirapanda/sendcloud4j?branch=master)
 [![Landscape Status](https://landscape.io/github/denger/sendcloud4j/master/landscape.svg?style=flat)](https://landscape.io/github/denger/sendcloud4j)
 
 [SendCloud](http://sendcloud.sohu.com) SDK For Java
@@ -52,6 +52,22 @@ Email email = Email.template("template_name")
             .to("denger.it@gmail.com");
 // 发送
 webapi.mail().send(email);
+```
+
+##### 处理发送结果
+1.返回值为字符串
+```
+webapi.mail().send(email);
+```
+
+2.返回值为Result对象
+```
+Result result = webapi.mail().sendOut(email);
+
+//是否发送成功
+result.isSuccess();
+//获取错误信息
+result.getError();
 ```
 
 

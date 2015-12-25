@@ -55,3 +55,4 @@ atlassian-ide-plugin.xml
 
 rmbpay-web/src/main/resources/static/assets/public/
 rmbpay-payment/src/main/resources/static/assets/public
+/target/
