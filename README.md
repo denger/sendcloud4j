@@ -6,68 +6,67 @@
 
 [SendCloud](http://sendcloud.sohu.com) SDK For Java
 
+* 支持 [邮箱API v2](http://sendcloud.sohu.com/doc/email_v2/send_email/#_2) 普通发送和模板发送
+
 ## Quick Start
+
+##### Maven
+
 ```xml
 <dependency>
 	<groupId>io.jstack</groupId>
 	<artifactId>sendcloud4j</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 <dependency>
 ```
 
-##### 发送 HTML 邮件
-```java
-// 通过 sendcloud 后台获取 api_user 和 api_key
-private String apiUser = "testApiUser";
-private String apiKey = "testApiKey";
+##### Gradle
 
-// 创建 API实例
-SendCloud webapi = SendCloud.createWebApi(apiUser, apiKey);
-
-// 构建邮件内容
-Email email = Email.general()
-            .from("from@test.com")
-            .fromName("denger")
-            .subject("this is subject")
-            .html("test html")
-            .to("denger.it@gmail.com");
-// 发送
-webapi.mail().send(email);
+```groovy
+compile 'io.jstack:sendcloud4j:0.0.1'
 ```
 
-##### 发送模板邮件
-```java
-// 通过 sendcloud 后台获取 api_user 和 api_key
-private String apiUser = "testApiUser";
-private String apiKey = "testApiKey";
+##### 代码示例
 
-// 创建 API实例
-SendCloud webapi = SendCloud.createWebApi(apiUser, apiKey);
+1. 初始化 API，通过 SendCloud 后台获取 apiUser 和 apiKey，创建 `SendCloud` 实例
+    ```java
+    private String apiUser = "testApiUser";
+    private String apiKey = "testApiKey";
+    SendCloud webapi = SendCloud.createWebApi(apiUser, apiKey);
+    ```
 
-// 构建模板邮件并替换模板变量
-Email email = Email.template("template_name")
-            .from("from@test.com")
-            .fromName("denger")
-            .substitutionVars(SubStitutionVars.sub().set("url", "http://www.baidu.com"))
-            .to("denger.it@gmail.com");
-// 发送
-webapi.mail().send(email);
-```
+1. 创建邮件实例，支持普通邮件和模板邮件。
 
-##### 处理发送结果
-1.返回值为字符串
-```java
-webapi.mail().send(email);
-```
+   普通邮件，邮件内容支持 HTML 或文本:
+    ```java
+    Email email = Email.general()
+        .from("support@jstack.io")
+        .fromName("JStack Support")
+        .html("<b>Hello World!</b>") // or .plain()
+        .subject("1024")
+        .to("denger.it@gmail.com")
+    ```
+    模块邮件，使用 `Substitution.sub()` 替换变量值:
+    ```java
+    Email email = Email.template("template_order_customer")
+        .from("support@jstack.io")
+        .fromName("JStack Support")
+        .substitutionVars(Substitution.sub()
+                .set("product", "iPhone 6S")
+                .set("name", "denger"))
+        .to("denger.it@gmail.com")
+    ```
 
-2.返回值为Result对象
-```java
-Result result = webapi.mail().sendOut(email);
+1. 执行发送
+    ```java
+    Result result = sendCloud.mail().send(email);
+    ```
 
-//是否发送成功
-result.isSuccess();
-//获取错误信息
-result.getError();
-```
+1. 处理发送结果
+    ```java
+    result.isSuccess();    //是否发送成功
+    result.getError();     //获取错误信息
+    result.getMessage();   //获取返回消息
+    ```
 
 

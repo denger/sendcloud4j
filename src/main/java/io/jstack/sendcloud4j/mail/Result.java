@@ -1,13 +1,13 @@
-package io.jstack.sendcloud.mail;
-
-import java.util.ArrayList;
-import java.util.List;
+package io.jstack.sendcloud4j.mail;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * API返回结果
@@ -25,12 +25,15 @@ public class Result {
     private String message;
     private List<String> errors;
 
+    private String json;
+
     /**
      * Construct a result from json msg
      *
      * @param jsonStr
      */
     public Result(String jsonStr) {
+        this.json = jsonStr;
         JSONObject jsonObj = new JSONObject(jsonStr);
         this.message = jsonObj.getString("message");
         try {
@@ -79,11 +82,11 @@ public class Result {
         if (1 == this.errors.size()) {
             return this.errors.get(0).toString();
         } else {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder bufErrors = new StringBuilder();
             for (String error : errors) {
-                sb.append(error).append(";");
+                bufErrors.append(error).append(";");
             }
-            return sb.toString();
+            return bufErrors.toString();
         }
     }
 
@@ -91,16 +94,12 @@ public class Result {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public List<String> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
+    @Override
+    public String toString() {
+        return json;
     }
-
 }

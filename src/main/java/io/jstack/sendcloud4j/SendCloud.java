@@ -1,7 +1,7 @@
-package io.jstack.sendcloud;
+package io.jstack.sendcloud4j;
 
 
-import io.jstack.sendcloud.mail.MailWebApi;
+import io.jstack.sendcloud4j.mail.MailWebApi;
 
 /**
  * Send Cloud API
@@ -11,6 +11,8 @@ import io.jstack.sendcloud.mail.MailWebApi;
 public class SendCloud {
 
     public static final String DOMAIN = "http://sendcloud.sohu.com";
+
+    public static final String API_DOMAIN = "http://api.sendcloud.net";
 
     public static SendCloud createWebApi(String apiUser, String apiKey) {
         return new SendCloud(apiUser, apiKey);

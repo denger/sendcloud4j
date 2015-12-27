@@ -1,6 +1,6 @@
-package io.jstack.sendcloud.mail;
+package io.jstack.sendcloud4j.mail;
 
-import io.jstack.sendcloud.SendCloud;
+import io.jstack.sendcloud4j.SendCloud;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+/**
+ * 邮件 API v2 实现。
+ *
+ * @author denger
+ */
 public class MailWebApi {
 
     private SendCloud sendCloud;
@@ -26,16 +31,7 @@ public class MailWebApi {
         this.sendCloud = sendCloud;
     }
 
-    public String send(Email email) {
-        try {
-            return requestSend(getSendAPIURI(email), email.getParameters());
-        } catch (IOException ioe) {
-            logger.error("Request send mail error: {}", ioe);
-            return ioe.getMessage();
-        }
-    }
-
-    public Result sendOut(Email email) {
+    public Result send(Email email) {
         try {
             String jsonResult = requestSend(getSendAPIURI(email),
                     email.getParameters());
@@ -46,9 +42,9 @@ public class MailWebApi {
         }
     }
 
-    private String getSendAPIURI(Email email) {
-        return String.format("%s/webapi/mail.%s.json", SendCloud.DOMAIN,
-                (isTemplate(email) ? "send_template" : "send"));
+    protected String getSendAPIURI(Email email) {
+        return String.format("%s/apiv2/mail/%s", SendCloud.API_DOMAIN,
+                (isTemplate(email) ? "sendtemplate" : "send"));
     }
 
     private boolean isTemplate(Email email) {
@@ -57,9 +53,11 @@ public class MailWebApi {
 
     private String requestSend(String uri, Map<String, String> params)
             throws IOException {
-        return Request.Post(uri).bodyForm(convertFrom(params).build(), UTF_8)
+        return Request.Post(uri)
+                .bodyForm(convertFrom(params).build(), UTF_8)
                 .connectTimeout(sendCloud.connectTimeout())
-                .socketTimeout(sendCloud.socketTimeout()).execute()
+                .socketTimeout(sendCloud.socketTimeout())
+                .execute()
                 .returnContent().asString(UTF_8);
     }
 
@@ -68,8 +66,8 @@ public class MailWebApi {
         for (Map.Entry<String, String> param : parameters.entrySet()) {
             form.add(param.getKey(), param.getValue());
         }
-        form.add("api_user", sendCloud.apiUser());
-        form.add("api_key", sendCloud.apiKey());
+        form.add("apiUser", sendCloud.apiUser());
+        form.add("apiKey", sendCloud.apiKey());
 
         return form;
     }
