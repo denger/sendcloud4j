@@ -16,14 +16,14 @@
 <dependency>
 	<groupId>io.jstack</groupId>
 	<artifactId>sendcloud4j</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 <dependency>
 ```
 
 ##### Gradle
 
 ```groovy
-compile 'io.jstack:sendcloud4j:0.0.1'
+compile 'io.jstack:sendcloud4j:0.0.2'
 ```
 
 ##### 代码示例
