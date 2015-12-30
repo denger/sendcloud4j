@@ -16,14 +16,14 @@
 <dependency>
 	<groupId>io.jstack</groupId>
 	<artifactId>sendcloud4j</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 <dependency>
 ```
 
 ##### Gradle
 
 ```groovy
-compile 'io.jstack:sendcloud4j:0.0.2'
+compile 'io.jstack:sendcloud4j:0.0.3'
 ```
 
 ##### 代码示例
@@ -44,7 +44,7 @@ compile 'io.jstack:sendcloud4j:0.0.2'
         .fromName("JStack Support")
         .html("<b>Hello World!</b>") // or .plain()
         .subject("1024")
-        .to("denger.it@gmail.com")
+        .to("denger.it@gmail.com");
     ```
     模块邮件，使用 `Substitution.sub()` 替换变量值:
     ```java
@@ -54,7 +54,7 @@ compile 'io.jstack:sendcloud4j:0.0.2'
         .substitutionVars(Substitution.sub()
                 .set("product", "iPhone 6S")
                 .set("name", "denger"))
-        .to("denger.it@gmail.com")
+        .to("denger.it@gmail.com");
     ```
 
 1. 执行发送
