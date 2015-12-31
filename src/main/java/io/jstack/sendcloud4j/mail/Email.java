@@ -184,7 +184,7 @@ public abstract class Email<E extends Email<E>> {
         return isNotBlank(values) ? values.split(sep) : new String[0];
     }
 
-    protected final Map<String, String> getParameters() {
+    public final Map<String, String> getParameters() {
         if (!isRewrite)
             rewriteParameters();
         isRewrite = true;

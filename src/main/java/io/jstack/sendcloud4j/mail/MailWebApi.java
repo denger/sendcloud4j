@@ -21,8 +21,6 @@ public class MailWebApi {
 
     private static Charset UTF_8 = Charset.forName("UTF-8");
 
-    private static Logger logger = LoggerFactory.getLogger(MailWebApi.class);
-
     public static MailWebApi create(SendCloud sendCloud) {
         return new MailWebApi(sendCloud);
     }
@@ -37,8 +35,7 @@ public class MailWebApi {
                     email.getParameters());
             return new Result(jsonResult);
         } catch (IOException ioe) {
-            logger.error("Request send mail error: {}", ioe);
-            return new Result(Result.CODE.ERROR, ioe.getMessage());
+            return Result.createExceptionResult(email, ioe);
         }
     }
 

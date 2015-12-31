@@ -16,7 +16,7 @@ apply plugin: "cobertura"
 apply plugin: 'com.github.kt3k.coveralls'
 
 group = 'io.jstack'
-version = '0.0.3'
+version = '0.0.4-SNAPSHOT'
 
 repositories {
     mavenCentral()
