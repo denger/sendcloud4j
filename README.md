@@ -8,6 +8,7 @@
 [SendCloud](http://sendcloud.sohu.com) SDK For Java
 
 * 支持 [邮箱API v2](http://sendcloud.sohu.com/doc/email_v2/send_email/#_2) 普通发送和模板发送
+* 支持批量发送(模块邮件批量变量替换)
 * 支持添加附件发送
 
 ## Quick Start
