@@ -228,6 +228,10 @@ public abstract class Email<E extends Email<E>> {
 
     protected void addBinaryAttachment(File file, String name) {
         try {
+            if (file == null || !isNotBlank(name)) {
+                throw new IllegalArgumentException(
+                        String.format("Attachment: [file: %s or name: %s illegal]", file, name));
+            }
             attachments.put(name, IOUtils.read(file));
         } catch (IOException ioe) {
             throw new RuntimeException("Can't add attachment:" + file.getAbsolutePath(), ioe);
