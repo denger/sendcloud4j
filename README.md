@@ -63,7 +63,7 @@ compile 'io.jstack:sendcloud4j:0.0.4'
 
 1. 执行发送
     ```java
-    Result result = sendCloud.mail().send(email);
+    Result result = webapi.mail().send(email);
     ```
 
 1. 处理发送结果
