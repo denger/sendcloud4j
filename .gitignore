@@ -52,7 +52,6 @@ atlassian-ide-plugin.xml
 .project
 .settings
 
+dump.rdb
 
-rmbpay-web/src/main/resources/static/assets/public/
-rmbpay-payment/src/main/resources/static/assets/public
 /target/

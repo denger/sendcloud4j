@@ -16,7 +16,7 @@ apply plugin: "cobertura"
 apply plugin: 'com.github.kt3k.coveralls'
 
 group = 'io.jstack'
-version = '0.0.4-SNAPSHOT'
+version = '0.0.5-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -30,6 +30,7 @@ dependencies {
     compile "org.slf4j:jcl-over-slf4j:1.7.2"
 
     compile 'org.apache.httpcomponents:fluent-hc:4.5.1'
+    compile 'org.apache.httpcomponents:httpmime:4.5.1'
     compile 'org.json:json:20140107'
 
     testCompile 'junit:junit:4.12'

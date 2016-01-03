@@ -8,6 +8,7 @@
 [SendCloud](http://sendcloud.sohu.com) SDK For Java
 
 * 支持 [邮箱API v2](http://sendcloud.sohu.com/doc/email_v2/send_email/#_2) 普通发送和模板发送
+* 支持添加附件发送
 
 ## Quick Start
 
@@ -17,14 +18,14 @@
 <dependency>
 	<groupId>io.jstack</groupId>
 	<artifactId>sendcloud4j</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 <dependency>
 ```
 
 ##### Gradle
 
 ```groovy
-compile 'io.jstack:sendcloud4j:0.0.3'
+compile 'io.jstack:sendcloud4j:0.0.4'
 ```
 
 ##### 代码示例
@@ -44,7 +45,8 @@ compile 'io.jstack:sendcloud4j:0.0.3'
         .from("support@jstack.io")
         .fromName("JStack Support")
         .html("<b>Hello World!</b>") // or .plain()
-        .subject("1024")
+        .subject("mail title")
+        .attachment(new File("att.png"))  // 添加附件
         .to("denger.it@gmail.com");
     ```
     模块邮件，使用 `Substitution.sub()` 替换变量值:
@@ -55,6 +57,7 @@ compile 'io.jstack:sendcloud4j:0.0.3'
         .substitutionVars(Substitution.sub()
                 .set("product", "iPhone 6S")
                 .set("name", "denger"))
+        .attachment(new File("att.png"))  // 添加附件
         .to("denger.it@gmail.com");
     ```
 
@@ -65,9 +68,9 @@ compile 'io.jstack:sendcloud4j:0.0.3'
 
 1. 处理发送结果
     ```java
-    result.isSuccess();    //是否发送成功
-    result.getError();     //获取错误信息
-    result.getMessage();   //获取返回消息
+    result.isSuccess();      //API 请求是否成功
+    result.getStatusCode();  //API 返回码
+    result.getMessage();     //API 返回码的中文解释
     ```
 
 

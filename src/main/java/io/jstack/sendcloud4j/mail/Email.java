@@ -1,5 +1,11 @@
 package io.jstack.sendcloud4j.mail;
 
+import io.jstack.sendcloud4j.util.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +16,8 @@ import java.util.Map;
  * @author denger
  */
 public abstract class Email<E extends Email<E>> {
+
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 普通发送邮件
@@ -32,10 +40,13 @@ public abstract class Email<E extends Email<E>> {
 
     protected Map<String, String> parameters;
 
+    protected Map<String, byte[]> attachments;
+
     private boolean isRewrite = false;
 
     public Email() {
         parameters = new HashMap<String, String>();
+        attachments = new HashMap<String, byte[]>();
     }
 
     /**
@@ -146,6 +157,82 @@ public abstract class Email<E extends Email<E>> {
         return addParameter("useNotification", true);
     }
 
+    /**
+     * 添加附件。附件名默认使用文件名
+     *
+     * @param attachments 附件列表
+     * @return
+     */
+    public E attachments(File[] attachments) {
+        for (File file : attachments) {
+            addBinaryAttachment(file);
+        }
+        return getThis();
+    }
+
+    /**
+     * 添加附件。附件名默认使用文件名
+     *
+     * @param attachment
+     * @return
+     */
+    public E attachment(File attachment) {
+        addBinaryAttachment(attachment);
+        return getThis();
+    }
+
+    /**
+     * 添加附件
+     *
+     * @param attachment 附件文件
+     * @param name       附件名
+     * @return E
+     */
+    public E attachment(File attachment, String name) {
+        addBinaryAttachment(attachment, name);
+        return getThis();
+    }
+
+    /**
+     * 添加附件
+     *
+     * @param attachment 附件内容
+     * @param name       附件名
+     * @return E
+     */
+    public E attachment(byte[] attachment, String name) {
+        attachments.put(name, attachment);
+        return getThis();
+    }
+
+    /**
+     * 获取附件列表。
+     *
+     * @return key: name, value: bytes
+     */
+    public Map<String, byte[]> attachments() {
+        return attachments;
+    }
+
+    protected String attachmentsKey() {
+        return "attachments";
+    }
+
+    protected boolean hasAttachment() {
+        return attachments().size() > 0;
+    }
+
+    protected void addBinaryAttachment(File file) {
+        addBinaryAttachment(file, file.getName());
+    }
+
+    protected void addBinaryAttachment(File file, String name) {
+        try {
+            attachments.put(name, IOUtils.read(file));
+        } catch (IOException ioe) {
+            throw new RuntimeException("Can't add attachment:" + file.getAbsolutePath(), ioe);
+        }
+    }
 
     protected E addParameters(String name, String[] values, String sep) {
         StringBuffer bufValue = new StringBuffer();
