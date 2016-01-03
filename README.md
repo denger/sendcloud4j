@@ -44,9 +44,9 @@ compile 'io.jstack:sendcloud4j:0.0.4'
     Email email = Email.general()
         .from("support@jstack.io")
         .fromName("JStack Support")
-        .html("<b>Hello World!</b>") // or .plain()
+        .html("<b>Hello World!</b>")          // or .plain()
         .subject("mail title")
-        .attachment(new File("att.png"))  // 添加附件
+        .attachment(new File("att.png"))      // 添加附件 (File || byte[])
         .to("denger.it@gmail.com");
     ```
     模块邮件，使用 `Substitution.sub()` 替换变量值:
@@ -54,10 +54,10 @@ compile 'io.jstack:sendcloud4j:0.0.4'
     Email email = Email.template("template_order_customer")
         .from("support@jstack.io")
         .fromName("JStack Support")
-        .substitutionVars(Substitution.sub()
+        .substitutionVars(Substitution.sub()  // 模板变量替换
                 .set("product", "iPhone 6S")
                 .set("name", "denger"))
-        .attachment(new File("att.png"))  // 添加附件
+        .attachment(new File("att.png"))      // 添加附件
         .to("denger.it@gmail.com");
     ```
 
