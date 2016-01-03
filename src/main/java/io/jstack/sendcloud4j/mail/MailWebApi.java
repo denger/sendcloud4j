@@ -65,17 +65,20 @@ public class MailWebApi {
     }
 
     private HttpEntity getMultipartEmailHttpEntity(Email email) {
-        MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create()
-                .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-                .setCharset(UTF_8);
+        MultipartEntityBuilder entityBuilder = createEntityBuilder();
+
         Map<String, byte[]> attachments = email.attachments();
         for (Map.Entry<String, byte[]> attachment : attachments.entrySet()) {
-            entityBuilder.addBinaryBody(email.attachmentsKey(),
-                    attachment.getValue(), ContentType.MULTIPART_FORM_DATA, attachment.getKey());
+            entityBuilder.addBinaryBody(email.attachmentsKey(), attachment.getValue(),
+                    ContentType.MULTIPART_FORM_DATA, attachment.getKey());
         }
         addParametersToTextBody(entityBuilder, email.getParameters());
 
         return entityBuilder.build();
+    }
+
+    public MultipartEntityBuilder createEntityBuilder() {
+        return MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE).setCharset(UTF_8);
     }
 
     private void addParametersToTextBody(MultipartEntityBuilder entityBuilder, Map<String, String> parameters) {
