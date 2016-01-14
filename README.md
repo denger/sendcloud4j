@@ -75,5 +75,5 @@ compile 'io.jstack:sendcloud4j:0.0.4'
     result.getMessage();     //API 返回码的中文解释
     ```
 
-*如果你有需求或问题请提 issues 或 fork :)*
+*如果你有新需求或问题欢迎提 issues 或 fork :)*
 
