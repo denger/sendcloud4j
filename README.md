@@ -7,7 +7,7 @@
 [SendCloud](http://sendcloud.sohu.com) SDK For Java
 
 * 支持 [邮箱API v2](http://sendcloud.sohu.com/doc/email_v2/send_email/#_2) 普通发送和模板发送
-* 支持批量发送(模块批量变量替换)
+* 支持批量发送(模板批量变量替换)
 * 支持添加附件发送
 
 
@@ -48,7 +48,7 @@ compile 'io.jstack:sendcloud4j:0.0.4'
         .fromName("JStack Support")
         .html("<b>Hello World!</b>")          // or .plain()
         .subject("mail title")
-        .attachment(new File("att.png"))      // 添加附件 (File || byte[])
+        .attachment(new File("att.png"))      // 添加附件 (File or byte[])
         .to("denger.it@gmail.com");
     ```
     模块邮件，使用 `Substitution.sub()` 替换变量值:
@@ -59,7 +59,7 @@ compile 'io.jstack:sendcloud4j:0.0.4'
         .substitutionVars(Substitution.sub()  // 模板变量替换
                 .set("product", "iPhone 6S")
                 .set("name", "denger"))
-        .attachment(new File("att.png"))      // 添加附件
+        .attachment(new File("att.png"))      // 添加附件 (File or byte[])
         .to("denger.it@gmail.com");
     ```
 
