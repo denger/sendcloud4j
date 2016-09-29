@@ -2,6 +2,7 @@ package io.jstack.sendcloud4j.mail;
 
 import io.jstack.sendcloud4j.SendCloud;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.ContentType;
@@ -21,16 +22,46 @@ public class MailWebApi {
 
     private SendCloud sendCloud;
 
+
+    private static final int DEFAULT_CONNECT_TIMEOUT = 500;
+    private static final int DEFAULT_SOCKET_TIMEOUT = 1000;
+
+    private int connectTimeout;
+    private int socketTimeout;
+    private HttpHost proxy;
+
     private static Charset UTF_8 = Charset.forName("UTF-8");
 
     public static final ContentType TEXT_PLAIN = ContentType.create("text/plain", UTF_8);
+
 
     public static MailWebApi create(SendCloud sendCloud) {
         return new MailWebApi(sendCloud);
     }
 
     private MailWebApi(SendCloud sendCloud) {
+        this.socketTimeout = DEFAULT_SOCKET_TIMEOUT;
+        this.connectTimeout = DEFAULT_CONNECT_TIMEOUT;
         this.sendCloud = sendCloud;
+    }
+
+    public MailWebApi viaProxy(String proxy) {
+        this.proxy = HttpHost.create(proxy);
+        return this;
+    }
+
+    public MailWebApi viaProxy(HttpHost proxy) {
+        this.proxy = proxy;
+        return this;
+    }
+
+    public MailWebApi socketTimeout(int socketTimeout) {
+        this.socketTimeout = socketTimeout;
+        return this;
+    }
+    public MailWebApi connectTimeout(int connectTimeout) {
+        this.connectTimeout = connectTimeout;
+        return this;
     }
 
     public Result send(Email email) {
@@ -53,9 +84,11 @@ public class MailWebApi {
 
     private String requestSend(String uri, Email email) throws IOException {
         Request request = Request.Post(uri)
-                .connectTimeout(sendCloud.connectTimeout())
-                .socketTimeout(sendCloud.socketTimeout());
-
+                .connectTimeout(connectTimeout)
+                .socketTimeout(socketTimeout);
+        if (proxy != null) {
+            request.viaProxy(proxy);
+        }
         if (email.hasAttachment()) {
             request.body(getMultipartEmailHttpEntity(email));
         } else {

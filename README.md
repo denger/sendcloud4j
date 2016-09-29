@@ -9,6 +9,7 @@
 * 支持 [邮箱API v2](http://sendcloud.sohu.com/doc/email_v2/send_email/#_2) 普通发送和模板发送
 * 支持批量发送(模板批量变量替换)
 * 支持添加附件发送
+* 支持使用 HTTP 代理发送
 
 
 
@@ -20,7 +21,7 @@
 <dependency>
 	<groupId>io.jstack</groupId>
 	<artifactId>sendcloud4j</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 <dependency>
 ```
 
