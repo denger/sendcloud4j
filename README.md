@@ -28,7 +28,7 @@
 ##### Gradle
 
 ```groovy
-compile 'io.jstack:sendcloud4j:0.0.4'
+compile 'io.jstack:sendcloud4j:0.0.5'
 ```
 
 ##### 代码示例
@@ -75,6 +75,15 @@ compile 'io.jstack:sendcloud4j:0.0.4'
     result.getStatusCode();  //API 返回码
     result.getMessage();     //API 返回码的中文解释
     ```
+
+## FQA
+
+###### 如何使用代理发送邮件？
+
+```java
+Result result = webapi.mail().viaProxy("102.43.39.21:8080").send(email);
+```
+
 
 *如果你有新需求或问题欢迎提 issues 或 fork :)*
 
