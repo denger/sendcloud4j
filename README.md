@@ -80,8 +80,9 @@ compile 'io.jstack:sendcloud4j:0.0.5'
 
 ###### 如何使用代理发送邮件？
 
+在发送邮件时通过 `viaProxy` 方法指定代码 ip 和端口，如下所示：
 ```java
-Result result = webapi.mail().viaProxy("102.43.39.21:8080").send(email);
+Result result = webapi.mail().viaProxy("example_ip:port").send(email);
 ```
 
 
