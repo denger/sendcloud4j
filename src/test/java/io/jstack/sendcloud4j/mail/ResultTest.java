@@ -1,6 +1,9 @@
 package io.jstack.sendcloud4j.mail;
 
+import org.apache.http.conn.ConnectTimeoutException;
 import org.junit.Test;
+
+import java.net.SocketTimeoutException;
 
 import static org.junit.Assert.*;
 
@@ -35,6 +38,19 @@ public class ResultTest {
         assertFalse(result.isSuccess());
         assertEquals(result.getStatusCode(), 500);
         assertEquals(result.getMessage(), "Nullexception");
+    }
+
+    @Test
+    public void testIOException() {
+        Result result = Result.createExceptionResult(new GeneralEmail(), new SocketTimeoutException());
+
+        assertFalse(result.isSuccess());
+        assertEquals(result.getStatusCode(), 501);
+
+        result = Result.createExceptionResult(new GeneralEmail(), new ConnectTimeoutException());
+
+        assertFalse(result.isSuccess());
+        assertEquals(result.getStatusCode(), 502);
     }
 
     @Test
