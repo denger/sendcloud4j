@@ -22,7 +22,7 @@
 	<groupId>io.jstack</groupId>
 	<artifactId>sendcloud4j</artifactId>
 	<version>0.0.5</version>
-<dependency>
+</dependency>
 ```
 
 ##### Gradle
